@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JavaScriptWithThis | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="this指向问题1,任何情况下直接在script中写入的this都是windowconsole.log(this)  2,函数中的this如果非严格模式this指向window，严格模式时，this指向undefined function fn()&amp;#123;     console.log(this); &amp;#125; fn();  3,箭头函数不管是否严格模式，this都指向箭头函数外上下文环境">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScriptWithThis">
+<meta property="og:url" content="http://example.com/2021/11/24/JavaScriptWithThis/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="this指向问题1,任何情况下直接在script中写入的this都是windowconsole.log(this)  2,函数中的this如果非严格模式this指向window，严格模式时，this指向undefined function fn()&amp;#123;     console.log(this); &amp;#125; fn();  3,箭头函数不管是否严格模式，this都指向箭头函数外上下文环境">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-24T12:39:51.000Z">
+<meta property="article:modified_time" content="2021-11-24T12:40:55.450Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JavaScriptWithThis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/24/JavaScriptWithThis/" class="article-date">
+  <time class="dt-published" datetime="2021-11-24T12:39:51.000Z" itemprop="datePublished">2021-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JavaScriptWithThis
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="this指向问题"><a href="#this指向问题" class="headerlink" title="this指向问题"></a>this指向问题</h2><h3 id="1-任何情况下直接在script中写入的this都是window"><a href="#1-任何情况下直接在script中写入的this都是window" class="headerlink" title="1,任何情况下直接在script中写入的this都是window"></a>1,任何情况下直接在script中写入的this都是window</h3><pre><code class="js">console.log(this)
+</code></pre>
+<h3 id="2-函数中的this"><a href="#2-函数中的this" class="headerlink" title="2,函数中的this"></a>2,函数中的this</h3><p><font color='red'>如果非严格模式this指向window，严格模式时，this指向undefined</font></p>
+<pre><code class="js">function fn()&#123;
+    console.log(this);
+&#125;
+fn();
+</code></pre>
+<h3 id="3-箭头函数"><a href="#3-箭头函数" class="headerlink" title="3,箭头函数"></a>3,箭头函数</h3><p><font color='red'>不管是否严格模式，this都指向箭头函数外上下文环境的this指向</font></p>
+<pre><code class="js">var fn=()=&gt;&#123;
+    console.log(this);
+&#125;
+fn();
+</code></pre>
+<h3 id="4-对象中的this"><a href="#4-对象中的this" class="headerlink" title="4,对象中的this"></a>4,对象中的this</h3><p><font color='red'>对象属性的this 指向对象外上下文环境的this</font></p>
+<pre><code class="js">//this---&gt;window
+var a=10;
+var obj=&#123;
+    a:this.a
+&#125;
+console.log(obj.a)
+</code></pre>
+<p><font color='red'>对象方法(普通函数)中的this，指向当前对象(谁执行该方法，this就指向谁)</font></p>
+<pre><code class="js">var  obj=&#123;
+    a:1,
+    b:function()&#123;
+        console.log(this);
+    &#125;
+&#125;
+</code></pre>
+<p><font color='red'>这里的this与第三条箭头函数中的this指向相同，指向对象外上下文环境中this</font></p>
+<pre><code class="js">var obj=&#123;
+    a:1,
+    b:()=&gt;&#123;
+        // this---&gt;window
+        console.log(this)
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="js">var o=&#123;
+    a:1,
+    b:function()&#123;
+        console.log(this===o1);//true
+        console.log(this===o);//false
+    &#125;
+&#125;
+
+
+var o1=Object.create(o);
+o1.b();
+</code></pre>
+<pre><code class="js">var o=&#123;
+    a:1,
+    b:function()&#123;
+        console.log(this) //o
+        var fn=()=&gt;&#123;
+            // 3--&gt;箭头函数
+            console.log(this);// o
+        &#125;
+        fn();
+
+        function fns()&#123;
+            // 2--&gt;函数指向
+            console.log(this);//window
+        &#125;
+        fns();
+        this.d();
+    &#125;,
+    c:()=&gt;&#123;
+        // 3--&gt;箭头函数
+        console.log(this);//window
+    &#125;,
+    d:function()&#123;
+        console.log(this)//调用环境 o
+    &#125;
+&#125;
+
+o.b();
+o.c();
+</code></pre>
+<h3 id="5-回调函数中的this"><a href="#5-回调函数中的this" class="headerlink" title="5,回调函数中的this"></a>5,回调函数中的this</h3><h4 id="1-setTimeout，setInterval回调函数"><a href="#1-setTimeout，setInterval回调函数" class="headerlink" title="1,setTimeout，setInterval回调函数"></a>1,setTimeout，setInterval回调函数</h4><p><font color='red'>不管是否是严格模式都会指向window</font></p>
+<pre><code class="js">function fn()&#123;
+    console.log(this)//window
+&#125;
+
+setTimeout(fn,500);
+</code></pre>
+<h4 id="2-通过别的函数内执行当前回调函数"><a href="#2-通过别的函数内执行当前回调函数" class="headerlink" title="2,通过别的函数内执行当前回调函数"></a>2,通过别的函数内执行当前回调函数</h4><p><font color='red'>这种通过别的函数内执行当前回调函数中 等同于2–&gt;函数</font></p>
+<pre><code class="js">function fn()&#123;
+    console.log(this)//window
+&#125;
+
+function fn1(f)&#123;
+    f();
+&#125;
+fn1(fn);
+</code></pre>
+<pre><code class="js">fn();
+function fn()&#123;
+    requestAnimationFrame(fn);
+    console.log(this);//window
+&#125;
+</code></pre>
+<h4 id="3-递归函数"><a href="#3-递归函数" class="headerlink" title="3,递归函数"></a>3,递归函数</h4><p><font color='red'>等同于函数</font></p>
+<pre><code class="js">var i=0;
+function fn()&#123;
+    console.log(this)//window
+    i++;
+    if(i&gt;3) return;
+    fn();
+&#125;
+fn();
+</code></pre>
+<pre><code class="js">var obj=&#123;
+    a:1,
+    b:function()&#123;
+        console.log(this);//window
+    &#125;,
+    c:function(f)&#123;
+        f();
+    &#125;
+&#125;
+
+obj.c(obj.b);
+</code></pre>
+<h4 id="3-默认状态数组部分遍历方法中回调函数中的this"><a href="#3-默认状态数组部分遍历方法中回调函数中的this" class="headerlink" title="3,默认状态数组部分遍历方法中回调函数中的this"></a>3,默认状态数组部分遍历方法中回调函数中的this</h4><p><font color='red'>等同于函数     数组的部分遍历方法中如果在最后一个参数中给入内容，那么这个函数中this将会被指向这个给入的内容(有thisArg参数)</font></p>
+<pre><code class="js">var arr=[1,2,3,4];
+arr.forEach(function()&#123;
+    console.log(this);//window
+&#125;)
+</code></pre>
+<blockquote>
+<p>​    arr.filter()</p>
+<p>​    arr.forEach()</p>
+<p>​    arr.every();</p>
+<p>​    arr.find();</p>
+<p>​    arr.findIndex();</p>
+<p>​    arr.map();</p>
+<p>​    arr.some();</p>
+<p>上面的这些方法都带有thisArg  所以情况和与下面相同</p>
+</blockquote>
+<pre><code class="js">var arr=[1,2,3,4];
+arr.forEach(function()&#123;
+    console.log(this)//&#123;a:1&#125;
+&#125;,&#123;a:1&#125;)
+</code></pre>
+<pre><code class="js">var arr=[1,2,3,4];
+arr.filter(function(item,index,arr)&#123;
+    console.log(this)//&#123;a:1&#125;
+&#125;,&#123;a:1&#125;)
+</code></pre>
+<pre><code class="js">var arr=[1,2,3,4];
+arr.flatMap(function(item,index,arr)&#123;
+    console.log(this)//&#123;a:1&#125;
+&#125;,&#123;a:1&#125;)
+</code></pre>
+<h4 id="4-回调函数时的arguments对应项执行回调"><a href="#4-回调函数时的arguments对应项执行回调" class="headerlink" title="4,回调函数时的arguments对应项执行回调"></a>4,回调函数时的arguments对应项执行回调</h4><p><font color='red'>回调函数时，如果使用arguments对应项执行回调，那么在被指向的函数中this指向回调该函数的那个函数中上下文环境中arguments</font></p>
+<pre><code class="js">function fn()&#123;
+    console.log(this)//fn1的arguments
+&#125;
+
+function fn1()&#123;
+    arguments[0]()
+&#125;
+fn1(fn);
+</code></pre>
+<h4 id="5-事件中的回调函数"><a href="#5-事件中的回调函数" class="headerlink" title="5,事件中的回调函数"></a>5,事件中的回调函数</h4><p><font color='red'>this指向事件侦听的对象(e.currentTarget)</font></p>
+<pre><code class="js">document.addEventListener(&quot;click&quot;,clickHandler);
+
+function clickHandler(e)&#123;
+    console.log(this)
+&#125;
+</code></pre>
+<pre><code class="js">document.addEventListener(&quot;click&quot;,clickHandler);
+
+function clickHandler(e)&#123;
+    setTimeout(function()&#123;
+        console.log(this);
+    &#125;,0)
+&#125;
+</code></pre>
+<h3 id="6-递归中的this"><a href="#6-递归中的this" class="headerlink" title="6,递归中的this"></a>6,递归中的this</h3><font color='red'>
+
+<pre><code class="js">var i=0;
+function fn()&#123;
+    console.log(this)
+    i++;
+    if(i&gt;3) return;
+    fn();
+&#125;
+fn();
+</code></pre>
+<h3 id="7-call，apply，bind方法执行时this的指向"><a href="#7-call，apply，bind方法执行时this的指向" class="headerlink" title="7,call，apply，bind方法执行时this的指向"></a>7,call，apply，bind方法执行时this的指向</h3><p><font color='red'>如果call,apply,bind传参时，第一个参数传入的是null或者undefined，非严格模式下指向window，严格模式下，传入什么指向什么；如果第一个参数传入的不是null或者undefined，在这个函数中this将会指向被传入这个参数</font></p>
+<pre><code class="js">function fn()&#123;
+    console.log(this)
+&#125;
+fn.call(null,&#123;a:1&#125;);//window
+fn.apply(undefined,&#123;a:1&#125;);//window
+</code></pre>
+<pre><code class="js">function fn()&#123;
+    console.log(this)
+&#125;
+fn.call(&#123;a:1&#125;);//&#123;a:1&#125;
+fn.apply(&#123;a:1&#125;);//&#123;a:1&#125;
+</code></pre>
+<pre><code class="js">var obj=&#123;a:1,b:2&#125;;
+
+var fn=clickhandler.bind(obj);
+
+document.addEventListener(&quot;click&quot;,fn);
+
+function clickhandler(e)&#123;
+    console.log(this);//&#123;a:1.b:2&#125;
+&#125;
+</code></pre>
+<h3 id="8-ES6的类中this的指向"><a href="#8-ES6的类中this的指向" class="headerlink" title="8,ES6的类中this的指向"></a>8,ES6的类中this的指向</h3><p><font color='red'>构造函数中的this指向实例了当前类所产生的新的实例对象</font></p>
+<p><font color='red'>类中实例化方法中this指向谁执行该方法，this指向谁</font></p>
+<p><font color='red'>类中静态方法中this指向该类或者该类的构造函数</font></p>
+<p><font color='red'>类中实例化箭头方法，this仍然指向当前类实例化的实例对象</font></p>
+<pre><code class="js">class Box&#123;
+    constructor()&#123;
+        console.log(this)
+    &#125;
+    play()&#123;
+        console.log(this)
+    &#125;
+    static run()&#123;
+        console.log(this)
+    &#125;
+    a=()=&gt;&#123;
+        console.log(this);
+    &#125;
+&#125;
+
+var b=new Box();//实例对象
+b.play();//实例对象
+b.a();//实例对象
+Box.run();//该类
+</code></pre>
+<h3 id="9-ES5的原型对象中this的指向"><a href="#9-ES5的原型对象中this的指向" class="headerlink" title="9,ES5的原型对象中this的指向"></a>9,ES5的原型对象中this的指向</h3><p><font color='red'>在原型的方法中，this指向实例化当前构造函数的实例化对象（谁执行该方法，this指向谁）</font></p>
+<pre><code class="js">function Box()&#123;
+
+&#125;
+Box.prototype.play=function()&#123;
+    console.log(this);//实例对象
+&#125;
+//等同于箭头函数  
+Box.prototype.run=()=&gt;&#123;
+    console.log(this);//window
+&#125;
+
+var b=new Box();
+b.play();
+b.run();
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/24/JavaScriptWithThis/" data-id="ckwdimofc0000gk1e8codcbac" data-title="JavaScriptWithThis" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/24/JavaScriptWithThis/">JavaScriptWithThis</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
